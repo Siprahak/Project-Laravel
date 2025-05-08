@@ -8,6 +8,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\Api\AuthController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,3 +25,11 @@ Route::apiResource('attachments', AttachmentController::class)->only(['index', '
 Route::apiResource('ratings', RatingController::class);
 
 Route::apiResource('responses', ResponseController::class);
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+});
