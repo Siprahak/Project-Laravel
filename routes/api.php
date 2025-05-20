@@ -1,4 +1,4 @@
-<?php
+a<?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,26 +10,32 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\Api\AuthController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::apiResource('users', UserController::class);
-
-Route::apiResource('categories', CategoryController::class);
-
-Route::apiResource('complaints', ComplaintController::class);
-
-Route::apiResource('attachments', AttachmentController::class)->only(['index', 'store', 'show', 'destroy']);
-
-Route::apiResource('ratings', RatingController::class);
-
-Route::apiResource('responses', ResponseController::class);
-
+// Rute pendaftaran dan login pengguna
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+
+});
+Route::middleware('auth:sanctum', 'cekrole:user,admin')->group(function () {
+    Route::apiResource('complaints', ComplaintController::class)->only(['index', 'store', 'show', 'destroy']);
+    Route::apiResource('attachments', AttachmentController::class)->only(['index', 'store', 'show', 'destroy']);
+    Route::apiResource('ratings', RatingController::class)->only(['index', 'store', 'show', 'destroy']);
+});
+
+// Rute hanya untuk admin
+Route::middleware('auth:sanctum', 'cekrole:admin')->group(function () {
+    Route::apiResource('categories', CategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::apiResource('responses', ResponseController::class)->only(['index', 'store', 'show', 'destroy']);
+    Route::get('/user', function (Request $request) {return $request->user();
+        
+    });
+});
+
+// Rute untuk pengguna
+Route::middleware('auth:sanctum', 'cekrole:admin')->group(function () {
+    Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);
+    
 });
