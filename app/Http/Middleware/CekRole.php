@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class CekRole
 {
     // /**
@@ -25,8 +26,6 @@ class CekRole
                 return $next($request); // Lanjutkan ke permintaan berikutnya
             }
         }
-
-        // Jika tidak, abort dengan status 403
-        abort(403);
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 }

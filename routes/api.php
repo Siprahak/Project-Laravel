@@ -1,5 +1,6 @@
 a<?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\Api\AuthController;
+
 
 // Rute pendaftaran dan login pengguna
 Route::post('/register', [AuthController::class, 'register']);
@@ -34,7 +36,7 @@ Route::middleware('auth:sanctum', 'cekrole:admin')->group(function () {
     });
 });
 
-// Rute untuk pengguna
+// Rute untuk admin
 Route::middleware('auth:sanctum', 'cekrole:admin')->group(function () {
     Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);
     
