@@ -15,7 +15,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       const me = await api.get("/me");
 
-      if (me.data.role === "admin") navigate("/admin");
+      if (me.data.role === "admin") navigate("/admin/dashboard");
       else navigate("/user");
     } catch (err) {
       alert("Login gagal!");
