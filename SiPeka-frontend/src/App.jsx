@@ -6,6 +6,7 @@ import UserDashboard from "./pages/UserDashboard";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
 import Categories from "./pages/admin/Categories/Categories";
+import Users from "./pages/admin/Users";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="categories" element={<Categories />} />
+              <Route path="users" element={<Users />} />
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>
