@@ -9,6 +9,7 @@ import Categories from "./pages/admin/Categories/Categories";
 import Users from "./pages/admin/Users";
 import Complaints from "./pages/admin/Complaints";
 import Responses from "./pages/admin/Responses";
+import Ratings from "./pages/admin/Ratings";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="users" element={<Users />} />
               <Route path="complaints" element={<Complaints />} />
               <Route path="responses" element={<Responses />} />
+              <Route path="ratings" element={<Ratings />} />
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>

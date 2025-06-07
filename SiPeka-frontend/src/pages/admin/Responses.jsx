@@ -13,6 +13,7 @@ const Responses = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [currentId, setCurrentId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(''); // <-- tambahkan state searchTerm
 
   const fetchResponses = async () => {
     try {
@@ -79,6 +80,12 @@ const Responses = () => {
     }
   };
 
+  // Filter responses berdasarkan message atau complaint title
+  const filteredResponses = responses.filter((res) =>
+    res.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (res.complaint?.title.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
@@ -143,6 +150,15 @@ const Responses = () => {
         </form>
       )}
 
+      {/* Search bar */}
+      <input
+        type="text"
+        placeholder="Cari pesan atau complaint..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="border px-3 py-2 mb-4 w-full md:w-1/3"
+      />
+
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border">
           <thead>
@@ -154,12 +170,12 @@ const Responses = () => {
             </tr>
           </thead>
           <tbody>
-            {responses.length === 0 ? (
+            {filteredResponses.length === 0 ? (
               <tr>
                 <td colSpan="4" className="text-center py-4">Tidak ada data.</td>
               </tr>
             ) : (
-              responses.map((res) => (
+              filteredResponses.map((res) => (
                 <tr key={res.response_id}>
                   <td className="py-2 px-4 border">{res.response_id}</td>
                   <td className="py-2 px-4 border">
