@@ -33,6 +33,9 @@ Route::middleware(['auth:sanctum', 'cekrole:admin'])->group(function () {
     Route::apiResource('complaints', ComplaintController::class)->only(['index', 'store', 'show','update', 'destroy']);
     Route::apiResource('attachments', AttachmentController::class)->only(['index', 'store', 'show','update', 'destroy']);
     Route::apiResource('ratings', RatingController::class)->only(['index', 'store', 'show','update', 'destroy']);
+    Route::post('/admin/users', [UserController::class, 'createUserByAdmin']);
+    Route::put('/admin/users/{id}', [UserController::class, 'updateUserByAdmin']);
+
     
     Route::get('/user', function (Request $request) {
         return $request->user();
