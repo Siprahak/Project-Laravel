@@ -7,6 +7,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
 import Categories from "./pages/admin/Categories/Categories";
 import Users from "./pages/admin/Users";
+import Complaints from "./pages/admin/Complaints";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="categories" element={<Categories />} />
               <Route path="users" element={<Users />} />
+              <Route path="complaints" element={<Complaints />} />
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>

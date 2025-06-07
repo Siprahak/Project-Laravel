@@ -14,6 +14,7 @@ export default function Login() {
       const res = await api.post("/login", form);
       localStorage.setItem("token", res.data.token);
       const me = await api.get("/me");
+      localStorage.setItem("user", JSON.stringify(me.data));
 
       if (me.data.role === "admin") navigate("/admin/dashboard");
       else navigate("/user");
@@ -31,3 +32,4 @@ export default function Login() {
     </form>
   );
 }
+
