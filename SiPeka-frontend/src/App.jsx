@@ -5,6 +5,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
+import Users from "./pages/admin/Users";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <AdminLayout>
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="users" element={<Users />} />
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>
