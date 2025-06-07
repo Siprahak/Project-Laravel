@@ -175,7 +175,7 @@ export default function Categories() {
             {filteredCategories.length === 0 && (
               <tr>
                 <td colSpan="2" className="px-4 py-4 text-center text-gray-500">
-                  Loading data...
+                  Tidak ada data.
                 </td>
               </tr>
             )}
