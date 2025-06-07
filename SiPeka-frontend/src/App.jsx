@@ -8,6 +8,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Categories from "./pages/admin/Categories/Categories";
 import Users from "./pages/admin/Users";
 import Complaints from "./pages/admin/Complaints";
+import Responses from "./pages/admin/Responses";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="categories" element={<Categories />} />
               <Route path="users" element={<Users />} />
               <Route path="complaints" element={<Complaints />} />
+              <Route path="responses" element={<Responses />} />
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>
