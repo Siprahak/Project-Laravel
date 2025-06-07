@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { deleteCategory, getCategories, createCategory, updateCategory } from "../../../_services/category"; 
+import {
+  deleteCategory,
+  getCategories,
+  createCategory,
+  updateCategory,
+} from "../../../_services/category";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const [categoryName, setCategoryName] = useState(""); // Unified state for category name
+  const [categoryName, setCategoryName] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
   const [updateCategoryId, setUpdateCategoryId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +33,7 @@ export default function Categories() {
     if (confirmDelete) {
       try {
         await deleteCategory(category_id);
-        setCategories(categories.filter((category) => category.category_id !== category_id));
+        setCategories(categories.filter((c) => c.category_id !== category_id));
       } catch (error) {
         console.error("Error deleting category:", error);
       }
@@ -35,114 +41,144 @@ export default function Categories() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-
-    if (updateMode) {
-      // Update category
-      if (updateCategoryId !== null) {
-        try {
-          const updatedCategory = await updateCategory(updateCategoryId, { name: categoryName });
-          setCategories(categories.map(category =>
-            category.category_id === updateCategoryId ? updatedCategory : category
-          ));
-          resetForm(); // Reset form and clear search
-        } catch (error) {
-          console.error("Error updating category:", error);
-        }
+    e.preventDefault();
+    try {
+      if (updateMode && updateCategoryId !== null) {
+        const updated = await updateCategory(updateCategoryId, { name: categoryName });
+        setCategories(categories.map(c => c.category_id === updateCategoryId ? updated : c));
+      } else {
+        const created = await createCategory({ name: categoryName });
+        setCategories([...categories, created]);
       }
-    } else {
-      // Create new category
-      if (categoryName) {
-        try {
-          const createdCategory = await createCategory({ name: categoryName });
-          setCategories([...categories, createdCategory]);
-          resetForm(); // Reset form and clear search
-        } catch (error) {
-          console.error("Error creating category:", error);
-        }
-      }
+      resetForm();
+    } catch (error) {
+      console.error("Error submitting category:", error);
     }
   };
 
   const resetForm = () => {
-    setCategoryName(""); // Reset the input field
-    setUpdateMode(false); // Exit update mode
-    setUpdateCategoryId(null); // Reset update ID
-    setSearchTerm(""); // Clear search term to show all categories
+    setCategoryName("");
+    setUpdateMode(false);
+    setUpdateCategoryId(null);
+    setShowForm(false);
   };
 
-  // Filter categories based on search term
-  const filteredCategories = categories.filter(category =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCategories = categories.filter((cat) =>
+    cat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Categories Dashboard</h1>
-      <div className="bg-white shadow-lg rounded-lg p-4">
-        <form className="mb-4 flex" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Category Name"
-            value={categoryName}
-            onChange={(e) => {
-              setCategoryName(e.target.value); // Update the category name
-              setSearchTerm(e.target.value); // Update search term in real-time
-            }} 
-            className="flex-grow px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
-          />
-          <button
-            type="submit"
-            className="ml-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
-          >
-            {updateMode ? (
-              <>
-                <FontAwesomeIcon icon={faEdit} className="mr-2" />
-                Update
-              </>
-            ) : (
-              <>
-                <FontAwesomeIcon icon={faPlus} className="mr-2" />
-                Create
-              </>
-            )}
-          </button>
-        </form>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Category Management</h1>
+        <button
+          onClick={() => {
+            resetForm();
+            setShowForm(true);
+          }}
+          className="bg-[#204c3f] text-white px-4 py-2 rounded hover:bg-green-800"
+        >
+          
+          Tambah Category
+        </button>
+      </div>
+
+      {/* Search Bar */}
+      <div className="mb-4 flex items-center">
         
-        <table className="w-full table-auto border-collapse">
+        <input
+          type="text"
+          placeholder="Cari kategori..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="border px-3 py-2 mb-4 w-full md:w-1/3"
+        />
+      </div>
+
+      {/* Form */}
+      {showForm && (
+        <form onSubmit={handleSubmit} className="mb-6 bg-gray-100 p-4 rounded space-y-3">
+          <div>
+            <label className="block mb-1 font-medium">Nama Kategori:</label>
+            <input
+              type="text"
+              value={categoryName}
+              onChange={(e) => setCategoryName(e.target.value)}
+              className="w-full border px-3 py-2 rounded"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="bg-[#204c3f] text-white px-4 py-2 rounded hover:bg-green800"
+            >
+              {updateMode ? (
+                <>
+                  
+                  Update
+                </>
+              ) : (
+                <>
+                  
+                  Simpan
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={resetForm}
+              className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+            >
+              Batal
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Table */}
+      <div className="bg-white shadow rounded">
+        <table className="w-full table-auto">
           <thead className="bg-gray-200">
             <tr>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2 text-center">Actions</th>
+              <th className="px-4 py-2 text-left">Nama</th>
+              <th className="px-4 py-2 text-center">Aksi</th>
             </tr>
           </thead>
           <tbody>
             {filteredCategories.map((category) => (
-              <tr key={category.category_id} className="border-b hover:bg-gray-100">
-                <td className="border px-4 py-2">{category.name}</td>
-                <td className="border px-4 py-2 text-center">
-                  <div className="flex justify-center space-x-2">
+              <tr key={category.category_id} className="border-t hover:bg-gray-100">
+                <td className="px-4 py-2">{category.name}</td>
+                <td className="px-4 py-2 text-center">
+                  <div className="flex justify-center gap-2">
                     <button
                       onClick={() => {
+                        setCategoryName(category.name);
                         setUpdateMode(true);
                         setUpdateCategoryId(category.category_id);
-                        setCategoryName(category.name); // Set the name for updating
+                        setShowForm(true);
                       }}
-                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+                      className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
                     >
-                      <FontAwesomeIcon icon={faEdit} className="mr-2" />
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(category.category_id)}
-                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200"
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                     >
-                      Delete
+                      Hapus
                     </button>
                   </div>
                 </td>
               </tr>
             ))}
+            {filteredCategories.length === 0 && (
+              <tr>
+                <td colSpan="2" className="px-4 py-4 text-center text-gray-500">
+                  Loading data...
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
