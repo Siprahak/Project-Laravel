@@ -10,6 +10,7 @@ import Users from "./pages/admin/Users";
 import Complaints from "./pages/admin/Complaints";
 import Responses from "./pages/admin/Responses";
 import Ratings from "./pages/admin/Ratings";
+import Attachments from "./pages/admin/Attachments";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
               <Route path="complaints" element={<Complaints />} />
               <Route path="responses" element={<Responses />} />
               <Route path="ratings" element={<Ratings />} />
+              <Route path="attachments" element={<Attachments />} />
+
               {/* Tambahkan route lain sesuai kebutuhan */}
             </Routes>
           </AdminLayout>
