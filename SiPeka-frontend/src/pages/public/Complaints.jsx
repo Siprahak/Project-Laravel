@@ -116,7 +116,7 @@ export default function ComplaintForm() {
           </select>
         </div>
         <div>
-          <label>Attachment (Opsional):</label>
+          <label>Bukti Foto:</label>
           <input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}

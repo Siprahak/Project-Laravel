@@ -26,7 +26,7 @@ export default function Dashboard() {
           onClick={() => navigate("/user/complaints")}
           className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full flex items-center gap-2 mx-auto font-semibold"
         >
-          <FileEdit size={18} /> FILE A COMPLAINT
+          <FileEdit size={18} /> BUAT PENGADUAN
         </button>
       </section>
     </div>
