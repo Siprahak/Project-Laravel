@@ -17,7 +17,7 @@ export default function Login() {
       localStorage.setItem("user", JSON.stringify(me.data));
 
       if (me.data.role === "admin") navigate("/admin/dashboard");
-      else navigate("/user");
+      else navigate("/user/home");
     } catch (err) {
       alert("Login gagal!");
     }

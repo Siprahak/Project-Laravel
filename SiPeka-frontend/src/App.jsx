@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/UserDashboard";
+// import AdminDashboard from "./pages/AdminDashboard";
+// import UserDashboard from "./pages/UserDashboard";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminLayout from "./layouts/AdminLayout";
 import Categories from "./pages/admin/Categories/Categories";
@@ -11,6 +11,11 @@ import Complaints from "./pages/admin/Complaints";
 import Responses from "./pages/admin/Responses";
 import Ratings from "./pages/admin/Ratings";
 import Attachments from "./pages/admin/Attachments";
+import UserLayout from "./layouts/UserLayout";
+import UserDashboard from "./pages/public/Dashboard";
+import UserComplaints from "./pages/public/Complaints";
+import UserRatings from "./pages/public/Ratings";
+import UserProfile from "./pages/public/Profile";
 
 function App() {
   return (
@@ -38,8 +43,15 @@ function App() {
           </AdminLayout>
         } />
 
+        <Route path="/user" element={<UserLayout />}>
+          <Route path="home" element={<UserDashboard />} />
+          <Route path="complaints" element={<UserComplaints />} />
+          <Route path="ratings" element={<UserRatings />} />
+          <Route path="profile" element={<UserProfile />} />
+        </Route>
+
         
-        <Route path="/user" element={<UserDashboard />} />
+        {/* <Route path="/user" element={<UserDashboard />} /> */}
       </Routes>
     </BrowserRouter>
   );
