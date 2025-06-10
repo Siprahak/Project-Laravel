@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum', 'cekrole:admin'])->group(function () {
     Route::post('/admin/users', [UserController::class, 'createUserByAdmin']);
     Route::put('/admin/users/{id}', [UserController::class, 'updateUserByAdmin']);
 
-    
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -48,5 +48,5 @@ Route::middleware(['auth:sanctum', 'cekrole:admin'])->group(function () {
 
 // Rute untuk admin
 // Route::middleware('auth:sanctum', 'cekrole:admin')->group(function () {
-    
+
 // });
