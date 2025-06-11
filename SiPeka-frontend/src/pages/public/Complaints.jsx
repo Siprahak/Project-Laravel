@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { createAttachment } from "../../_services/attachment";
+import { useNavigate } from "react-router-dom";
 
 const initialForm = {
   title: "",
@@ -14,6 +15,15 @@ export default function ComplaintForm() {
   const [file, setFile] = useState(null);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Cek token saat pertama kali halaman dibuka
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // Fetch kategori ketika komponen mount
   useEffect(() => {
@@ -65,7 +75,10 @@ export default function ComplaintForm() {
   return (
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Buat Pengaduan</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 bg-gray-100 p-4 rounded">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 bg-gray-100 p-4 rounded"
+      >
         <div>
           <label>Judul:</label>
           <input

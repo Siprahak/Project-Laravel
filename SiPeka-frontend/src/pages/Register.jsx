@@ -34,45 +34,58 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 max-w-sm mx-auto">
-      <h1 className="text-xl font-bold mb-4">Register</h1>
-      <input
-        name="name"
-        onChange={handleChange}
-        placeholder="Name"
-        className="w-full mb-2 p-2 border"
-        required
-      />
-      <input
-        name="email"
-        type="email"
-        onChange={handleChange}
-        placeholder="Email"
-        className="w-full mb-2 p-2 border"
-        required
-      />
-      <input
-        name="password"
-        type="password"
-        onChange={handleChange}
-        placeholder="Password"
-        className="w-full mb-2 p-2 border"
-        required
-      />
-      <input
-        name="password_confirmation"
-        type="password"
-        onChange={handleChange}
-        placeholder="Confirm Password"
-        className="w-full mb-4 p-2 border"
-        required
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 w-full rounded"
-      >
-        Register
-      </button>
-    </form>
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 overflow-hidden">
+      <div className="absolute inset-0 bg-cover bg-center opacity-60 z-0" style={{ backgroundImage: "url("+"https://ppid.upnjatim.ac.id/wp-content/uploads/2024/06/GERBANG-UPNVJT-POLOS.jpg"+")" }}></div>
+
+      <div className="relative z-10 bg-white w-full max-w-md p-8 rounded-2xl shadow-xl">
+        <h1 className="text-2xl font-bold text-center mb-6">Register</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Nama Lengkap"
+            value={form.name}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+          />
+          <input
+            type="password"
+            name="password_confirmation"
+            placeholder="Konfirmasi Password"
+            value={form.password_confirmation}
+            onChange={handleChange}
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+          />
+          <button
+            type="submit"
+            className="w-full bg-green-900 text-white py-2 rounded-lg hover:bg-green-800 transition"
+          >
+            Register
+          </button>
+          <p className="text-center text-sm text-gray-600">
+            Sudah punya akun?{" "}
+            <a href="/login" className="text-green-900 font-medium">
+              Login
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
   );
 }

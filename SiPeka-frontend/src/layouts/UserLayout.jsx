@@ -7,11 +7,18 @@ export default function UserLayout() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  const handleUserLogout = () => {
+    setUser(null); // ini yang penting!
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/user/home");
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
-        navigate("/login");
+        navigate("/user/home");
         return;
       }
 
@@ -28,25 +35,21 @@ export default function UserLayout() {
           setUser(data);
         } else {
           localStorage.removeItem("token");
-          navigate("/login");
+          navigate("/user/home");
         }
       } catch (err) {
         console.error("Error fetching user data:", err);
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/user/home");
       }
     };
 
     fetchUser();
   }, [navigate]);
 
-  if (!user) {
-    return <div className="p-6">Loading...</div>;
-  }
-
   return (
     <div className="flex flex-col min-h-screen bg-[#f2f2f2]">
-      <UserNavbar user={user} />
+      <UserNavbar user={user} onLogout={handleUserLogout} />
       <main className="flex-1 ">
         <Outlet />
       </main>

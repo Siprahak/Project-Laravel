@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getComplaint } from "../../_services/complaint";
 import { createRating } from "../../_services/rating";
 import { Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Ratings() {
   const [form, setForm] = useState({ rating: 0, feedback: "" });
@@ -10,6 +11,15 @@ export default function Ratings() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+
+  // Cek token saat pertama kali halaman dibuka
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

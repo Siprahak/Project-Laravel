@@ -21,27 +21,32 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<UserLayout />}>
+          <Route index element={<UserDashboard />} />
+        </Route>
 
         <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/admin/*" element={
-          <AdminLayout>
-            <Routes>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="categories" element={<Categories />} />
-              <Route path="users" element={<Users />} />
-              <Route path="complaints" element={<Complaints />} />
-              <Route path="responses" element={<Responses />} />
-              <Route path="ratings" element={<Ratings />} />
-              <Route path="attachments" element={<Attachments />} />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminLayout>
+              <Routes>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="categories" element={<Categories />} />
+                <Route path="users" element={<Users />} />
+                <Route path="complaints" element={<Complaints />} />
+                <Route path="responses" element={<Responses />} />
+                <Route path="ratings" element={<Ratings />} />
+                <Route path="attachments" element={<Attachments />} />
 
-              {/* Tambahkan route lain sesuai kebutuhan */}
-            </Routes>
-          </AdminLayout>
-        } />
+                {/* Tambahkan route lain sesuai kebutuhan */}
+              </Routes>
+            </AdminLayout>
+          }
+        />
 
         <Route path="/user" element={<UserLayout />}>
           <Route path="home" element={<UserDashboard />} />
@@ -50,7 +55,6 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
         </Route>
 
-        
         {/* <Route path="/user" element={<UserDashboard />} /> */}
       </Routes>
     </BrowserRouter>

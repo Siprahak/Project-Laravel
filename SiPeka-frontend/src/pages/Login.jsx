@@ -6,7 +6,8 @@ export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +25,50 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 max-w-sm mx-auto">
-      <h1 className="text-xl font-bold mb-4">Login</h1>
-      <input name="email" onChange={handleChange} placeholder="Email" className="w-full mb-2 p-2 border" />
-      <input name="password" type="password" onChange={handleChange} placeholder="Password" className="w-full mb-2 p-2 border" />
-      <button className="bg-green-500 text-white px-4 py-2">Login</button>
-    </form>
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-60 z-0"
+        style={{
+          backgroundImage:
+            "url(https://ppid.upnjatim.ac.id/wp-content/uploads/2024/06/GERBANG-UPNVJT-POLOS.jpg)",
+        }}
+      ></div>
+
+      <div className="relative z-10 bg-white w-full max-w-md p-8 rounded-2xl shadow-xl">
+        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-900"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-green-900 text-white py-2 rounded-lg hover:bg-green-800 transition"
+          >
+            Login
+          </button>
+          <p className="text-center text-sm text-gray-600">
+            Belum punya akun?{" "}
+            <a href="/register" className="text-green-900 font-medium">
+              Register
+            </a>
+          </p>
+        </form>
+      </div>
+    </div>
   );
 }
-
