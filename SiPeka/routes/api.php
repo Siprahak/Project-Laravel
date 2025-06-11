@@ -19,25 +19,27 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
-    Route::apiResource('categories', CategoryController::class)->only(['index', 'store', 'show', 'update', 'delete']);
+    Route::apiResource('categories', CategoryController::class)->only(['index','show']);
     Route::apiResource('complaints', ComplaintController::class)->only(['index', 'store', 'show','update', 'destroy']);
     Route::apiResource('attachments', AttachmentController::class)->only(['index', 'store', 'show','update', 'destroy']);
     Route::apiResource('ratings', RatingController::class)->only(['index', 'store', 'show','update', 'destroy']);
-});
+        Route::apiResource('responses', ResponseController::class)->only(['index', 'show']);
+    // Rute hanya untuk admin
+    Route::middleware(['cekrole:admin'])->group(function () {
+        Route::apiResource('categories', CategoryController::class)->only([ 'store', 'update', 'destroy']);
+        Route::apiResource('responses', ResponseController::class)->only([ 'store', 'update', 'destroy']);
+        Route::apiResource('users', UserController::class)->only(['index', 'store', 'show','update', 'destroy']);
+        Route::post('/admin/users', [UserController::class, 'createUserByAdmin']);
+        Route::put('/admin/users/{id}', [UserController::class, 'updateUserByAdmin']);
 
-// Rute hanya untuk admin
-Route::middleware(['auth:sanctum', 'cekrole:admin'])->group(function () {
-    Route::apiResource('responses', ResponseController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
-    Route::apiResource('users', UserController::class)->only(['index', 'store', 'show','update', 'destroy']);
-    Route::post('/admin/users', [UserController::class, 'createUserByAdmin']);
-    Route::put('/admin/users/{id}', [UserController::class, 'updateUserByAdmin']);
-
-
-    Route::get('/user', function (Request $request) {
-        return $request->user();
+    
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+    
     });
-
 });
+
 
 
 // Route::middleware('auth:sanctum', 'cekrole:user,admin')->group(function () {
