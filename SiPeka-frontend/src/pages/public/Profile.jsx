@@ -108,6 +108,7 @@ export default function Profile() {
                   <p className="text-gray-700">Deskripsi: {complaint.description}</p>
                   <p className="text-gray-700">Kategori : {complaint.category.name}</p>
                   <p className="text-gray-700">Lokasi : {complaint.location}</p>
+                  <p className="text-gray-700">Status : {complaint.status}</p>
                 </li>
               ))}
             </ul>
