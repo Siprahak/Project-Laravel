@@ -34,7 +34,7 @@ function App() {
           element={
             <AdminLayout>
               <Routes>
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard" element={<Dashboard/>} />
                 <Route path="categories" element={<Categories />} />
                 <Route path="users" element={<Users />} />
                 <Route path="complaints" element={<Complaints />} />
