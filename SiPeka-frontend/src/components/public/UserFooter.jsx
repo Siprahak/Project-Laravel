@@ -12,7 +12,7 @@ export default function UserFooter() {
       <div className="flex justify-center gap-8 mb-4">
         <NavLink to="/user/home" className={linkClass}>Home</NavLink>
         <NavLink to="/user/complaints" className={linkClass}>Complaints</NavLink>
-        <NavLink to="/user/ratings" className={linkClass}>Ratings</NavLink>
+        {/* <NavLink to="/user/ratings" className={linkClass}>Ratings</NavLink> */}
         <NavLink to="/user/profile" className={linkClass}>Profile</NavLink>
       </div>
       <p className="text-[#a9a9a9] text-sm border-t pt-2 pl-5" style={{ borderTopColor: "#373737" }}>2025. SiPeka All Rights Reserved</p>

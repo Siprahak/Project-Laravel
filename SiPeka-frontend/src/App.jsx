@@ -14,7 +14,7 @@ import Attachments from "./pages/admin/Attachments";
 import UserLayout from "./layouts/UserLayout";
 import UserDashboard from "./pages/public/Dashboard";
 import UserComplaints from "./pages/public/Complaints";
-import UserRatings from "./pages/public/Ratings";
+// import UserRatings from "./pages/public/Ratings";
 import UserProfile from "./pages/public/Profile";
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
         <Route path="/user" element={<UserLayout />}>
           <Route path="home" element={<UserDashboard />} />
           <Route path="complaints" element={<UserComplaints />} />
-          <Route path="ratings" element={<UserRatings />} />
+          {/* <Route path="ratings" element={<UserRatings />} /> */}
           <Route path="profile" element={<UserProfile />} />
         </Route>
 

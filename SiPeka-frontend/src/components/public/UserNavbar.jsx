@@ -32,7 +32,7 @@ export default function UserNavbar({ user }) {
 
   return (
     <header className="bg-white shadow-md flex justify-between items-center px-6 h-16">
-      <img src="/src/assets/logo.png" alt="Logo" className="h-8" />
+      <img src="/src/assets/logo.jpg" alt="Logo" className="h-16" />
 
       <div className="flex items-center gap-12 ml-auto">
         {/* NavLink Group */}
@@ -43,9 +43,9 @@ export default function UserNavbar({ user }) {
           <NavLink to="/user/complaints" className={navLinkClass}>
             Complaints
           </NavLink>
-          <NavLink to="/user/ratings" className={navLinkClass}>
+          {/* <NavLink to="/user/ratings" className={navLinkClass}>
             Ratings
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/user/profile" className={navLinkClass}>
             Profile
           </NavLink>

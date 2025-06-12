@@ -56,4 +56,17 @@ class ComplaintController extends Controller
             return response()->json(['message' => 'Complaint not found'], 404);
         }
     }
+
+    public function myComplaints(Request $request)
+    {
+        $user = auth()->user(); // ambil user yang sedang login
+
+        $complaints = Complaint::with(['user', 'category', 'attachments', 'response', 'rating'])
+            ->where('user_id', $user->user_id) // pastikan ini field primary key user
+            ->get();
+
+        return response()->json($complaints);
+    }
+
+
 }

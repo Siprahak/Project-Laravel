@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::apiResource('categories', CategoryController::class)->only(['index','show']);
     Route::apiResource('complaints', ComplaintController::class)->only(['index', 'store', 'show','update', 'destroy']);
+    Route::get('/my-complaints', [ComplaintController::class, 'myComplaints']);
     Route::apiResource('attachments', AttachmentController::class)->only(['index', 'store', 'show','update', 'destroy']);
     Route::apiResource('ratings', RatingController::class)->only(['index', 'store', 'show','update', 'destroy']);
         Route::apiResource('responses', ResponseController::class)->only(['index', 'show']);

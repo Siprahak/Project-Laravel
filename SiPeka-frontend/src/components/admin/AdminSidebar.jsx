@@ -47,6 +47,7 @@ export default function AdminSidebar() {
       if (res.ok) {
         // Hapus token dari localStorage
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
 
         // Redirect ke halaman login
         navigate("/login");
