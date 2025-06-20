@@ -21,6 +21,13 @@ const [selectedDate, setSelectedDate] = useState("");
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const formatDateTime = (isoString) =>
     new Date(isoString).toLocaleString("id-ID", {
       dateStyle: "medium",

@@ -19,7 +19,7 @@ export default function Dashboard() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[#204c3f] text-white text-center py-10 px-4">
+      <section className="bg-[#204c3f] text-white text-center py-10 px-4 mt-6">
         <h2 className="text-2xl font-bold mb-2">Mulai Melapor Sekarang</h2>
         <p className="mb-6 text-base">Atasi masalah fasilitas kampus dengan mengirim laporan Anda.</p>
         <button
